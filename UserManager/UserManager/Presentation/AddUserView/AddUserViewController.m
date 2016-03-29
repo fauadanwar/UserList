@@ -71,29 +71,35 @@
 
 -(void) keyboardDidShow:(NSNotification *)notification
 {
-    //Get Size of keyboard
-    NSDictionary* info = [notification userInfo];
-    
-    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    
-    self.constraintBottomAlignment.constant = kbSize.height - _initialConstraintConstant;
-    
-    [UIView animateWithDuration:0.25 animations:^{
+    if (!IS_IPAD())
+    {
+        //Get Size of keyboard
+        NSDictionary* info = [notification userInfo];
         
-        [self.view layoutIfNeeded];
-    }];
-    
-    NSLog(@"");
+        CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+        
+        self.constraintBottomAlignment.constant = kbSize.height - _initialConstraintConstant;
+        
+        [UIView animateWithDuration:0.25 animations:^{
+            
+            [self.view layoutIfNeeded];
+        }];
+        
+        NSLog(@"");
+    }
 }
 
 -(void) keyboardWillHide:(NSNotification *)notification
 {
-    self.constraintBottomAlignment.constant = _initialConstraintConstant;
-    
-    [UIView animateWithDuration:0.25 animations:^{
+    if (!IS_IPAD())
+    {
+        self.constraintBottomAlignment.constant = _initialConstraintConstant;
         
-        [self.view layoutIfNeeded];
-    }];
+        [UIView animateWithDuration:0.25 animations:^{
+            
+            [self.view layoutIfNeeded];
+        }];
+    }
 }
 
 #pragma mark Text Field Delegate

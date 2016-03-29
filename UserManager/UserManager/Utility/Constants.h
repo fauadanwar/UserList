@@ -14,4 +14,6 @@
 #define DEBUG 2
 #endif
 
+#define IS_IPAD() (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+
 #endif /* Constants_h */
